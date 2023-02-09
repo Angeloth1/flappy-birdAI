@@ -10,6 +10,8 @@ pygame.font.init()
 WIN_WIDTH = 500
 WIN_HEIGHT = 800
 
+GEN = 0
+
 #importing the images
 BIRD_IMGS = [pygame.transform.scale2x(pygame.image.load(os.path.join("imgs","bird1.png"))),
     pygame.transform.scale2x(pygame.image.load(os.path.join("imgs","bird2.png"))),
@@ -167,14 +169,17 @@ def draw_window(win,birds,pipes,base,score):
     for pipe in pipes:
         pipe.draw(win)
     
-    txt = STAT_FONT.render("Score: " + str(score), 1, (255,255,255))
-    win.blit(txt, (WIN_WIDTH - 10 - txt.get_width(), 10))
+    txt = STAT_FONT.render("GEN " + str(GEN), 1, (255,255,255))
+    win.blit(txt, (10 , 10))
     base.draw(win)
     for bird in birds:
         bird.draw(win)
     pygame.display.update()
 
 def main(genomes,config):
+    global GEN 
+
+    GEN += 1
     nets = []
     ge = []
     birds = []
@@ -258,7 +263,7 @@ def main(genomes,config):
                 
 
         base.move()
-        draw_window(win, birds, pipes, base, score)
+        draw_window(win, birds, pipes, base, score, GEN)
         
 def run(config_file):
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction,
@@ -269,7 +274,7 @@ def run(config_file):
     p.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     p.add_reporter(stats)
-    winner = p.run(main,150)
+    winner = p.run(main,20)
 
 if __name__ == '__main__':
     local_dir = os.path.dirname(__file__)

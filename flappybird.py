@@ -163,13 +163,13 @@ class Base:
         win.blit(self.IMG,(self.x2, self.y))
 
 
-def draw_window(win,birds,pipes,base,score):
+def draw_window(win,birds,pipes,base,score, gen):
     win.blit(BG_IMG, (0,0))
     
     for pipe in pipes:
         pipe.draw(win)
     
-    txt = STAT_FONT.render("GEN " + str(GEN), 1, (255,255,255))
+    txt = STAT_FONT.render("GEN " + str(gen), 1, (255,255,255))
     win.blit(txt, (10 , 10))
     base.draw(win)
     for bird in birds:
@@ -253,7 +253,7 @@ def main(genomes,config):
             
         for r in rem:
                 pipes.remove(r)
-
+        
         for x,bird in enumerate(birds):
             if bird.y + bird.img.get_height() >= 730 or bird.y < 0:
                 ge[x].fitness -= 1

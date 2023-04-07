@@ -233,7 +233,7 @@ def main(genomes,config):
                 if pipe.collide(bird):
                    ge[x].fitness -= 1
                    birds.pop(x)
-                   net.pop(x)
+                   nets.pop(x)
                    ge.pop(x)  
                 
                 if not pipe.passed and pipe.x < bird.x:
@@ -258,7 +258,7 @@ def main(genomes,config):
             if bird.y + bird.img.get_height() >= 730 or bird.y < 0:
                 ge[x].fitness -= 1
                 birds.pop(x)
-                net.pop(x)
+                nets.pop(x)
                 ge.pop(x)  
                 
 
